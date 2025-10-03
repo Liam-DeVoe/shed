@@ -1,4 +1,4 @@
-# test nested with statement get reformatted in 3.9 or above
+# test nested with statement get reformatted
 
 with make_context_manager(1) as cm1:
     with make_context_manager(2) as cm2:
@@ -25,7 +25,7 @@ with make_context_manager(1) as cm1:
 
 ================================================================================
 
-# test nested with statement get reformatted in 3.9 or above
+# test nested with statement get reformatted
 
 with make_context_manager(1) as cm1, make_context_manager(2) as cm2:
     pass

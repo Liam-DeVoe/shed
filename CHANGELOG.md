@@ -1,6 +1,10 @@
 # Changelog
 *`shed` uses [calendar versioning](https://calver.org/), with a year.month.patch scheme.*
 
+#### 2025.10.1 - 2025-10-03
+- [Python 3.9 has reached end-of-life](https://devguide.python.org/versions/),
+  so `shed` targets and runs on Python 3.10 or later.
+
 #### 2025.6.1 - 2025-06-05
 - Improve performance in large repositories, by skipping directories that start with `.` during an internal check.
 

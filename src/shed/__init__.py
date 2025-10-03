@@ -19,7 +19,7 @@ import black
 from black.mode import TargetVersion
 from black.parsing import lib2to3_parse
 
-__version__ = "2025.6.1"
+__version__ = "2025.10.1"
 __all__ = ["shed", "docshed"]
 
 # Conditionally imported in refactor mode to reduce startup latency in the common case
@@ -29,7 +29,7 @@ _run_codemods: Any = None
 _version_map = {
     k: (int(k.name[2]), int(k.name[3:]))
     for k in TargetVersion
-    if k.value >= TargetVersion.PY39.value
+    if k.value >= TargetVersion.PY310.value
 }
 _default_min_version = min(_version_map.values())
 _SUGGESTIONS = (
