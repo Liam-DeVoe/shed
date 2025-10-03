@@ -13,17 +13,16 @@ import subprocess
 import sys
 import tokenize
 import warnings
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable, FrozenSet, Optional, Union
+from sys import stdlib_module_names
 
 from . import ShedSyntaxWarning, _version_map, docshed, shed
 from ._is_python_file import is_python_file
 
-from sys import stdlib_module_names
-
 
 @functools.lru_cache
-def _get_git_repo_root(cwd: Optional[str] = None) -> str:
+def _get_git_repo_root(cwd: str | None = None) -> str:
     return subprocess.run(
         ["git", "rev-parse", "--show-toplevel"],
         check=True,
@@ -35,7 +34,7 @@ def _get_git_repo_root(cwd: Optional[str] = None) -> str:
 
 
 @functools.lru_cache
-def _guess_first_party_modules(cwd: Optional[str] = None) -> FrozenSet[str]:
+def _guess_first_party_modules(cwd: str | None = None) -> frozenset[str]:
     """Guess the name of the current package for first-party imports."""
     # Note: this fails inside git worktrees
     try:
@@ -78,9 +77,7 @@ def _should_format(fname: str) -> bool:
     return fname.endswith((".md", ".rst", ".pyi")) or is_python_file(fname)
 
 
-def _rewrite_on_disk(
-    fname: str, **kwargs: Union[bool, FrozenSet[str]]
-) -> Union[bool, str]:
+def _rewrite_on_disk(fname: str, **kwargs: bool | frozenset[str]) -> bool | str:
     """Return either bool(rewrote the file), or an error message string."""
     try:
         with open(fname, mode="rb") as handle:

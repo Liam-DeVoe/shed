@@ -13,7 +13,7 @@ import textwrap
 import warnings
 from operator import attrgetter
 from re import Match
-from typing import Any, FrozenSet, Tuple
+from typing import Any
 
 import black
 from black.mode import TargetVersion
@@ -139,8 +139,8 @@ def shed(
     *,
     refactor: bool = False,
     is_pyi: bool = False,
-    first_party_imports: FrozenSet[str] = frozenset(),
-    min_version: Tuple[int, int] = _default_min_version,
+    first_party_imports: frozenset[str] = frozenset(),
+    min_version: tuple[int, int] = _default_min_version,
     _location: str = "string passed to shed.shed()",
     _remove_unused_imports: bool = True,
 ) -> str:
@@ -269,8 +269,8 @@ def docshed(
     source: str,
     *,
     refactor: bool = False,
-    first_party_imports: FrozenSet[str] = frozenset(),
-    min_version: Tuple[int, int] = _default_min_version,
+    first_party_imports: frozenset[str] = frozenset(),
+    min_version: tuple[int, int] = _default_min_version,
     _location: str = "string passed to shed.docshed()",
 ) -> str:
     """Process Python code blocks embedded in documentation."""

@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import re
 import tokenize
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 # Copied from https://github.com/PyCQA/autoflake autoflake.py
 

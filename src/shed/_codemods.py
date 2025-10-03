@@ -8,7 +8,6 @@ nitpicks about typing unions and literals.
 import re
 from ast import literal_eval
 from functools import wraps
-from typing import List, Tuple, Union
 
 import libcst as cst
 import libcst.matchers as m
@@ -58,7 +57,7 @@ imports_hypothesis = re.compile(
 ).search
 
 
-def _run_codemods(code: str, min_version: Tuple[int, int]) -> str:
+def _run_codemods(code: str, min_version: tuple[int, int]) -> str:
     """Run all Shed fixers on a code string."""
     context = cst.codemod.CodemodContext()
 
@@ -375,9 +374,9 @@ class ShedFixers(VisitorBasedCodemodCommand):
     def _flatten_bool(
         self,
         expr,
-        leading_lines: List[cst.EmptyLine],
-        comments: List[cst.Comment],
-    ) -> List[cst.SimpleStatementLine]:
+        leading_lines: list[cst.EmptyLine],
+        comments: list[cst.Comment],
+    ) -> list[cst.SimpleStatementLine]:
         def handle_leftright(node, comments, nodes, leading_lines):
             # if node is a BoolOp, recurse - sending them our leading lines
             if m.matches(node, m.BooleanOperation(operator=m.And())):
@@ -571,10 +570,10 @@ class ShedFixers(VisitorBasedCodemodCommand):
     @leave(m.With())
     def remove_nested_with(self, _, updated_node):
         candidate_with: cst.With = updated_node
-        compound_items: List[cst.WithItem] = []
+        compound_items: list[cst.WithItem] = []
         final_body: cst.BaseSuite = candidate_with.body
 
-        def has_leading_comment(node: Union[cst.SimpleStatementLine, cst.With]) -> bool:
+        def has_leading_comment(node: cst.SimpleStatementLine | cst.With) -> bool:
             return any(line.comment is not None for line in node.leading_lines)
 
         header = m.AllOf(
